@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Trading Strategy App</title>
+    
+    <!-- CSS Dosyaları -->
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Ana Container -->
+    <div id="app" class="app-container">
+        
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-left">
+                <h1 class="app-title">
+                    <i class="fas fa-chart-line"></i>
+                    Crypto Trading Strategy
+                </h1>
+            </div>
+            <div class="header-right">
+                <button id="settingsBtn" class="btn btn-secondary">
+                    <i class="fas fa-cog"></i> Ayarlar
+                </button>
+                <button id="debugToggle" class="btn btn-outline">
+                    <i class="fas fa-bug"></i> Debug
+                </button>
+            </div>
+        </header>
+
+        <!-- Ana İçerik -->
+        <main class="app-main">
+            
+            <!-- Sol Panel - Dashboard -->
+            <aside class="left-panel">
+                <div class="panel-header">
+                    <h3>Dashboard</h3>
+                </div>
+                <div id="dashboard" class="dashboard-content">
+                    <!-- Dashboard bileşenleri buraya gelecek -->
+                </div>
+            </aside>
+
+            <!-- Orta Panel - Charts ve Signals -->
+            <section class="center-panel">
+                
+                <!-- Coin Selector -->
+                <div class="coin-selector">
+                    <select id="coinSelect" class="coin-select">
+                        <option value="BTCUSDT">BTC/USDT</option>
+                        <option value="ETHUSDT">ETH/USDT</option>
+                        <option value="ADAUSDT">ADA/USDT</option>
+                    </select>
+                    <button id="addCoinBtn" class="btn btn-sm">
+                        <i class="fas fa-plus"></i> Coin Ekle
+                    </button>
+                </div>
+
+                <!-- Timeframe Tabs -->
+                <div class="timeframe-tabs">
+                    <button class="tab-btn active" data-timeframe="4h">4H</button>
+                    <button class="tab-btn" data-timeframe="1h">1H</button>
+                    <button class="tab-btn" data-timeframe="15m">15M</button>
+                </div>
+
+                <!-- Chart Container -->
+                <div id="chartContainer" class="chart-container">
+                    <div class="chart-placeholder">
+                        <i class="fas fa-chart-candlestick"></i>
+                        <p>Chart yükleniyor...</p>
+                    </div>
+                </div>
+
+                <!-- Signals Panel -->
+                <div id="signalsPanel" class="signals-panel">
+                    <h4>Aktif Sinyaller</h4>
+                    <div id="signalsList" class="signals-list">
+                        <!-- Sinyaller buraya gelecek -->
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- Sağ Panel - Trading -->
+            <aside class="right-panel">
+                <div class="panel-header">
+                    <h3>Trading Panel</h3>
+                </div>
+                <div id="tradingPanel" class="trading-content">
+                    <!-- Trading bileşenleri buraya gelecek -->
+                </div>
+            </aside>
+
+        </main>
+
+        <!-- Debug Konsolu (Gizli) -->
+        <div id="debugConsole" class="debug-console hidden">
+            <div class="debug-header">
+                <h4><i class="fas fa-terminal"></i> Debug Console</h4>
+                <div class="debug-controls">
+                    <button id="clearLogs" class="btn btn-sm">Clear</button>
+                    <button id="exportLogs" class="btn btn-sm">Export</button>
+                    <button id="closeDebug" class="btn btn-sm">×</button>
+                </div>
+            </div>
+            <div class="debug-filters">
+                <select id="logLevel" class="debug-select">
+                    <option value="all">Tüm Seviyeler</option>
+                    <option value="error">Errors</option>
+                    <option value="warning">Warnings</option>
+                    <option value="info">Info</option>
+                    <option value="debug">Debug</option>
+                </select>
+                <select id="logCategory" class="debug-select">
+                    <option value="all">Tüm Kategoriler</option>
+                    <option value="api">API</option>
+                    <option value="websocket">WebSocket</option>
+                    <option value="indicators">Indicators</option>
+                    <option value="trading">Trading</option>
+                </select>
+                <input type="text" id="logSearch" placeholder="Log ara..." class="debug-search">
+            </div>
+            <div id="debugLogs" class="debug-logs">
+                <!-- Debug logları buraya gelecek -->
+            </div>
+        </div>
+
+        <!-- Loading Overlay -->
+        <div id="loadingOverlay" class="loading-overlay hidden">
+            <div class="loading-spinner">
+                <i class="fas fa-spinner fa-spin"></i>
+                <p>Yükleniyor...</p>
+            </div>
+        </div>
+
+        <!-- Alert Container -->
+        <div id="alertContainer" class="alert-container">
+            <!-- Alertler buraya gelecek -->
+        </div>
+
+    </div>
+
+    <!-- JavaScript Modülleri -->
+    
+    <!-- Debug Sistemi (İlk yüklenecek) -->
+    <script src="js/modules/debug/logger.js"></script>
+    <script src="js/modules/debug/errorHandler.js"></script>
+    <script src="js/components/debugConsole.js"></script>
+    
+    <!-- Core Modüller -->
+    <script src="js/config/config.js"></script>
+    <script src="js/utils/calculations.js"></script>
+    <script src="js/modules/data/storage.js"></script>
+    
+    <!-- Data Modülleri -->
+    <script src="js/modules/data/binanceAPI.js"></script>
+    <script src="js/modules/data/webSocket.js"></script>
+    <script src="js/modules/data/dataProcessor.js"></script>
+    
+    <!-- İndikatör Modülleri -->
+    <script src="js/modules/indicators/nadaraya.js"></script>
+    <script src="js/modules/indicators/rsi.js"></script>
+    <script src="js/modules/indicators/movingAverages.js"></script>
+    <script src="js/modules/indicators/atr.js"></script>
+    
+    <!-- Trading Modülleri -->
+    <script src="js/modules/trading/signalGenerator.js"></script>
+    <script src="js/modules/trading/timeframeValidator.js"></script>
+    <script src="js/modules/trading/mockTrader.js"></script>
+    <script src="js/modules/trading/portfolioManager.js"></script>
+    <script src="js/modules/trading/riskManager.js"></script>
+    <script src="js/modules/trading/trailingStop.js"></script>
+    
+    <!-- UI Bileşenleri -->
+    <script src="js/components/dashboard.js"></script>
+    <script src="js/components/tradingPanel.js"></script>
+    <script src="js/components/chartViewer.js"></script>
+    <script src="js/components/alertSystem.js"></script>
+    <script src="js/components/settings.js"></script>
+    
+    <!-- Ana App -->
+    <script src="js/app.js"></script>
+
+    <script>
+        // Uygulama başlatma
+        document.addEventListener('DOMContentLoaded', function() {
+            try {
+                Logger.info('APP', 'Uygulama başlatılıyor...');
+                
+                // Global error handling'i başlat
+                if (window.ErrorHandler) {
+                    ErrorHandler.init();
+                }
+                
+                // Debug console'u başlat
+                if (window.DebugConsole) {
+                    DebugConsole.init();
+                }
+                
+                // Ana uygulamayı başlat
+                if (window.App) {
+                    App.init();
+                } else {
+                    Logger.error('APP', 'Ana uygulama modülü bulunamadı');
+                }
+                
+            } catch (error) {
+                console.error('Uygulama başlatma hatası:', error);
+                Logger.error('APP', 'Uygulama başlatma hatası: ' + error.message);
+            }
+        });
+
+        // Debug toggle
+        document.getElementById('debugToggle').addEventListener('click', function() {
+            if (window.DebugConsole) {
+                DebugConsole.toggle();
+            }
+        });
+    </script>
+
+</body>
+</html>
